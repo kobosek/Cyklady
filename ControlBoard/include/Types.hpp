@@ -44,4 +44,49 @@ inline std::ostream& operator <<(std::ostream& os, God p_godToPrint)
     }
 }
 
+enum class Color
+{
+    Blue,
+    Black,
+    Green,
+    Red,
+    Yellow
+};
+
+inline std::ostream& operator <<(std::ostream& os, Color p_colorToPrint)
+{
+    switch(p_colorToPrint)
+    {
+    case Color::Blue:
+        return os << "Blue";
+    case Color::Black:
+        return os << "Black";
+    case Color::Green:
+        return os << "Green";
+    case Color::Red:
+        return os << "Red";
+    case Color::Yellow:
+        return os << "Yellow";
+    default:
+        return os << "Inalid Color!";
+    }
+}
+
+enum class Beast
+{
+
+};
+
+const std::vector<Beast> ALL_BEASTS { };
+
+inline std::ostream& operator <<(std::ostream& os, Beast p_beastToPrint)
+{
+    switch(p_beastToPrint)
+    {
+    default:
+        return os << "Invalid Beast!";
+    }
+}
+
+
 }

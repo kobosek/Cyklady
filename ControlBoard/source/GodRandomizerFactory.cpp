@@ -15,7 +15,7 @@ std::unique_ptr<IGodRandomizer> GodRandomizerFactory::createGodRandomizer(Number
     case NumberOfPlayers::Three:
         return std::make_unique<ThreePlayersRandomizer>();
     default:
-        throw std::exception();
+        throw std::invalid_argument("Invalid Number Of Players!");
     }
 }
 
