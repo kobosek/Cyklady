@@ -1,7 +1,9 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+
 #include "ControlBoard.hpp"
+#include "Types.hpp"
 
 using namespace Cyclades;
 

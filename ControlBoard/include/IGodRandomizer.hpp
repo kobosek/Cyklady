@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Types.hpp"
+#include <vector>
 
 namespace Cyclades
 {
+
+enum class God;
 
 class IGodRandomizer
 {

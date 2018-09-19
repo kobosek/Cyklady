@@ -1,4 +1,5 @@
 #include "GodRandomizerFactory.hpp"
+#include "Types.hpp"
 #include "GodRandomizer.hpp"
 
 namespace Cyclades

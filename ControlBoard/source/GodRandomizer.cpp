@@ -1,8 +1,16 @@
 #include <algorithm>
+
 #include "GodRandomizer.hpp"
+#include "Types.hpp"
 
 namespace Cyclades
 {
+
+RandomizerBase::RandomizerBase()
+    : m_lastGodsSetting(ALL_GODS)
+{
+    m_randomizer.randomize(m_lastGodsSetting);
+}
 
 std::vector<God> FivePlayersRandomizer::randomizeGods()
 {
@@ -12,7 +20,6 @@ std::vector<God> FivePlayersRandomizer::randomizeGods()
 
 FourPlayersRandomizer::FourPlayersRandomizer()
 {
-    m_randomizer.randomize(m_lastGodsSetting);
     auto l_unavailableGodIt = m_lastGodsSetting.end() - 1;
     m_lastUnavailableGod = *l_unavailableGodIt;
     m_lastGodsSetting.erase(l_unavailableGodIt);

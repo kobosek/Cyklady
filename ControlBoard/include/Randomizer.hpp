@@ -2,7 +2,6 @@
 
 #include <random>
 #include <algorithm>
-#include "Types.hpp"
 
 namespace Cyclades
 {

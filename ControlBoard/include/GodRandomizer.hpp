@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+
 #include "IGodRandomizer.hpp"
 #include "Randomizer.hpp"
 
@@ -10,9 +11,10 @@ namespace Cyclades
 class RandomizerBase : public IGodRandomizer
 {
 public:
+    RandomizerBase();
     virtual ~RandomizerBase() = default;
 protected:
-    std::vector<God> m_lastGodsSetting = ALL_GODS;
+    std::vector<God> m_lastGodsSetting;
     Randomizer m_randomizer;
 };
 

@@ -1,17 +1,17 @@
 #pragma once
 
 #include <memory>
-#include "Types.hpp"
 
 namespace Cyclades
 {
 
+enum class NumberOfPlayers;
 class IGodRandomizer;
 
 class GodRandomizerFactory
 {
 public:
-    std::unique_ptr<IGodRandomizer> createGodRandomizer(NumberOfPlayers p_numberOfPlayers);
+    static std::unique_ptr<IGodRandomizer> createGodRandomizer(NumberOfPlayers p_numberOfPlayers);
 };
 
 }
