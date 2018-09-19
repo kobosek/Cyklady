@@ -3,9 +3,6 @@
 
 namespace Cyclades
 {
-RandomizerBase::RandomizerBase() :
-    m_lastGodsSetting(ALL_GODS)
-{}
 
 std::vector<God> FivePlayersRandomizer::randomizeGods()
 {
@@ -13,29 +10,27 @@ std::vector<God> FivePlayersRandomizer::randomizeGods()
     return m_lastGodsSetting;
 }
 
+FourPlayersRandomizer::FourPlayersRandomizer()
+{
+    m_randomizer.randomize(m_lastGodsSetting);
+    auto l_unavailableGodIt = m_lastGodsSetting.end() - 1;
+    m_lastUnavailableGod = *l_unavailableGodIt;
+    m_lastGodsSetting.erase(l_unavailableGodIt);
+}
+
 std::vector<God> FourPlayersRandomizer::randomizeGods()
 {
-    auto l_lastUsedIt = (m_lastUnavailableGod != God::Empty) ? m_lastGodsSetting.end() - 1
-                                                             : m_lastGodsSetting.end();
+    m_randomizer.randomize(m_lastGodsSetting);
 
-    std::vector<God> l_newGodsSetting(m_lastGodsSetting.begin(), l_lastUsedIt);
-
-    m_randomizer.randomize(l_newGodsSetting);
-
-    auto l_newUnavailableGodIt = l_newGodsSetting.end() - 1;
+    auto l_newUnavailableGodIt = m_lastGodsSetting.end() - 1;
     auto l_newUnavailableGod = *l_newUnavailableGodIt;
 
-    l_newGodsSetting.erase(l_newUnavailableGodIt);
+    m_lastGodsSetting.erase(l_newUnavailableGodIt);
 
-    if (m_lastUnavailableGod != God::Empty)
-    {
-        l_newGodsSetting.push_back(m_lastUnavailableGod);
-        m_randomizer.randomize(l_newGodsSetting);
-    }
+    m_lastGodsSetting.push_back(m_lastUnavailableGod);
+    m_randomizer.randomize(m_lastGodsSetting);
 
-    l_newGodsSetting.push_back(God::Empty);
     m_lastUnavailableGod = l_newUnavailableGod;
-    m_lastGodsSetting = l_newGodsSetting;
 
     return m_lastGodsSetting;
 }

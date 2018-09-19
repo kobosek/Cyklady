@@ -10,10 +10,9 @@ namespace Cyclades
 class RandomizerBase : public IGodRandomizer
 {
 public:
-    RandomizerBase();
     virtual ~RandomizerBase() = default;
 protected:
-    std::vector<God> m_lastGodsSetting;
+    std::vector<God> m_lastGodsSetting = ALL_GODS;
     Randomizer m_randomizer;
 };
 
@@ -26,9 +25,10 @@ public:
 class FourPlayersRandomizer : public RandomizerBase
 {
 public:
+    FourPlayersRandomizer();
     std::vector<God> randomizeGods() override;
 private:
-    God m_lastUnavailableGod = God::Empty;
+    God m_lastUnavailableGod;
 };
 
 class ThreePlayersRandomizer : public RandomizerBase
