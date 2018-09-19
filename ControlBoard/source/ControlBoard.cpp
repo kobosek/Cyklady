@@ -16,7 +16,6 @@ ControlBoard::ControlBoard(NumberOfPlayers p_numberOfPlayers)
 
 ControlBoard::~ControlBoard()
 {
-
 }
 
 void ControlBoard::printGods()

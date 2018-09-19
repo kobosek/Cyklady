@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <deque>
 
 namespace Cyclades
 {
@@ -11,7 +11,7 @@ class IGodRandomizer
 {
 public:
     virtual ~IGodRandomizer() = default;
-    virtual std::vector<God> randomizeGods() = 0;
+    virtual std::deque<God> randomizeGods() = 0;
 };
 
 }

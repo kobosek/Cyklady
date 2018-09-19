@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <deque>
 #include <ostream>
 
 namespace Cyclades
@@ -16,26 +17,26 @@ enum class NumberOfPlayers
 
 enum class God
 {
-    Aphrodite,
     Ares,
+    Athena,
     Poseidon,
     Zeus,
     Empty
 };
 
-const std::vector<God> ALL_GODS { God::Aphrodite,
-                                  God::Ares,
-                                  God::Poseidon,
-                                  God::Zeus };
+const std::deque<God> ALL_GODS { God::Ares,
+                                 God::Athena,
+                                 God::Poseidon,
+                                 God::Zeus };
 
 inline std::ostream& operator <<(std::ostream& os, God p_godToPrint)
 {
     switch(p_godToPrint)
     {
-    case God::Aphrodite:
-        return os << "Aphrodite";
     case God::Ares:
         return os << "Ares";
+    case God::Athena:
+        return os << "Athena";
     case God::Poseidon:
         return os << "Poseidon";
     case God::Zeus:

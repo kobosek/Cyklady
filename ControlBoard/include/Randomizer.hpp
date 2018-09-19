@@ -2,6 +2,7 @@
 
 #include <random>
 #include <algorithm>
+#include <deque>
 
 namespace Cyclades
 {
@@ -11,7 +12,7 @@ public:
     Randomizer() : m_seed(m_random()) {}
 
     template<typename T>
-    void randomize(std::vector<T>& p_typeVector)
+    void randomize(std::deque<T>& p_typeVector)
     {
         std::shuffle(p_typeVector.begin(), p_typeVector.end(), m_seed);
     }
