@@ -11,7 +11,7 @@ int main()
 {
     try
     {
-        ControlBoard l_controlBoard(NumberOfPlayers::Four);
+        ControlBoard l_controlBoard(NumberOfPlayers::Three);
 
         //FOR TESTING PURPOSES RANDOMIZE 10 times for four players
         for (int i = 0; i < 10; ++i)

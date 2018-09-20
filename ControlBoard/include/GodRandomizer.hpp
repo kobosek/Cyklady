@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+#include <memory>
 
 #include "IGodRandomizer.hpp"
 #include "Randomizer.hpp"
@@ -33,12 +34,43 @@ private:
     God m_lastUnavailableGod;
 };
 
+class ThreePlayersRandomizer;
+class IRandomizerPhase
+{
+public:
+    virtual std::deque<God> randomizeGods(ThreePlayersRandomizer* p_randomizer) = 0;
+    void changePhase(ThreePlayersRandomizer* p_randomizer, std::shared_ptr<IRandomizerPhase> p_phase);
+};
+
+class FirstPhase : public IRandomizerPhase
+{
+public:
+    static std::shared_ptr<IRandomizerPhase> instance();
+    std::deque<God> randomizeGods(ThreePlayersRandomizer* p_randomizer) override;
+private:
+    static std::shared_ptr<IRandomizerPhase> m_instance;
+};
+
+class SecondPhase : public IRandomizerPhase
+{
+public:
+    static std::shared_ptr<IRandomizerPhase> instance();
+    std::deque<God> randomizeGods(ThreePlayersRandomizer* p_randomizer) override;
+private:
+    static std::shared_ptr<IRandomizerPhase> m_instance;
+};
+
 class ThreePlayersRandomizer : public RandomizerBase
 {
 public:
+    ThreePlayersRandomizer();
     std::deque<God> randomizeGods() override;
 private:
-    std::deque<God> m_lastUnavailablePair;
+    friend class IRandomizerPhase;
+    void changePhase(std::shared_ptr<IRandomizerPhase> p_phase);
+
+    std::shared_ptr<IRandomizerPhase> m_state;
+    std::deque<God> m_lastUnavailableGods;
 };
 
 }
