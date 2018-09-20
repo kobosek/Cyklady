@@ -38,42 +38,24 @@ std::deque<God> FourPlayersRandomizer::randomizeGods()
     return m_lastGodsSetting;
 }
 
-void IRandomizerPhase::changePhase(ThreePlayersRandomizer* p_randomizer, std::shared_ptr<IRandomizerPhase> p_phase)
-{
-    p_randomizer->changePhase(p_phase);
-}
-
-std::shared_ptr<IRandomizerPhase> FirstPhase::m_instance = std::make_shared<FirstPhase>();
-
-std::shared_ptr<IRandomizerPhase> FirstPhase::instance()
-{
-    return m_instance;
-}
-
-std::deque<God> FirstPhase::randomizeGods(ThreePlayersRandomizer* p_randomizer)
-{
-    std::cout << "FirstPhase" << std::endl;
-    changePhase(p_randomizer, SecondPhase::instance());
-    return std::deque<God>();
-}
-
-std::shared_ptr<IRandomizerPhase> SecondPhase::m_instance = std::make_shared<SecondPhase>();
-
-std::shared_ptr<IRandomizerPhase> SecondPhase::instance()
-{
-    return m_instance;
-}
-
-std::deque<God> SecondPhase::randomizeGods(ThreePlayersRandomizer* p_randomizer)
-{
-    std::cout << "SecondPhase" << std::endl;
-    changePhase(p_randomizer, FirstPhase::instance());
-    return std::deque<God>();
-}
-
 ThreePlayersRandomizer::ThreePlayersRandomizer()
-    : m_state(std::shared_ptr<IRandomizerPhase>(FirstPhase::instance()))
+    : m_state(RandomizerPhase::FirstPhase),
+      m_randomizeGods({ std::make_pair(RandomizerPhase::FirstPhase, std::bind(&ThreePlayersRandomizer::randomizeFirstPhase, this)),
+                        std::make_pair(RandomizerPhase::SecondPhase, std::bind(&ThreePlayersRandomizer::randomizeSecondPhase, this)) })
 {
+
+}
+
+std::deque<God> ThreePlayersRandomizer::randomizeGods()
+{
+    return m_randomizeGods[m_state]();
+}
+
+std::deque<God> ThreePlayersRandomizer::randomizeFirstPhase()
+{
+    m_lastGodsSetting = ALL_GODS;
+    m_lastUnavailableGods = {};
+
     m_randomizer.randomize(m_lastGodsSetting);
 
     int l_numberOfUnavailableGods = 2;
@@ -83,14 +65,19 @@ ThreePlayersRandomizer::ThreePlayersRandomizer()
         m_lastUnavailableGods.push_front(m_lastGodsSetting.back());
         m_lastGodsSetting.pop_back();
     }
+
+    changePhase(RandomizerPhase::SecondPhase);
+    return m_lastGodsSetting;
 }
 
-std::deque<God> ThreePlayersRandomizer::randomizeGods()
+std::deque<God> ThreePlayersRandomizer::randomizeSecondPhase()
 {
-    return m_state->randomizeGods(this);
+    m_lastGodsSetting.swap(m_lastUnavailableGods);
+    changePhase(RandomizerPhase::FirstPhase);
+    return m_lastGodsSetting;
 }
 
-void ThreePlayersRandomizer::changePhase(std::shared_ptr<IRandomizerPhase> p_phase)
+void ThreePlayersRandomizer::changePhase(RandomizerPhase p_phase)
 {
     m_state = p_phase;
 }
