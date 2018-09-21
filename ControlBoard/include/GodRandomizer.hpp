@@ -1,7 +1,5 @@
 #pragma once
 
-#include <random>
-#include <memory>
 #include <map>
 #include <functional>
 
@@ -17,7 +15,7 @@ enum class RandomizerPhase
     SecondPhase
 };
 
-using RandomizeGods = std::map<RandomizerPhase, std::function<std::deque<God>()>>;
+using RandomizeGods = std::map<RandomizerPhase, std::function<void()>>;
 
 class RandomizerBase : public IGodRandomizer
 {
@@ -27,13 +25,16 @@ public:
 protected:
     RandomizerBase(const RandomizeGods& p_phases);
     void changePhase(RandomizerPhase p_phase);
+    void commonRandomize(const int p_numberOfUnavailableGods);
 
-    Randomizer m_randomizer;
     RandomizerPhase m_state;
     RandomizeGods m_randomizeGods;
 
-    std::deque<God> m_lastGodsSetting;
+    std::deque<God> m_lastAvailableGods;
     std::deque<God> m_lastUnavailableGods;
+
+    Randomizer m_randomizer;
+
 };
 
 class FivePlayersRandomizer : public RandomizerBase
@@ -41,7 +42,7 @@ class FivePlayersRandomizer : public RandomizerBase
 public:
     FivePlayersRandomizer();
 private:
-    std::deque<God> randomize();
+    void randomize();
 };
 
 class FourPlayersRandomizer : public RandomizerBase
@@ -49,8 +50,7 @@ class FourPlayersRandomizer : public RandomizerBase
 public:
     FourPlayersRandomizer();
 private:
-    std::deque<God> randomizeFirstPhase();
-    std::deque<God> randomizeSecondPhase();
+    void randomize();
 };
 
 class ThreePlayersRandomizer : public RandomizerBase
@@ -58,8 +58,9 @@ class ThreePlayersRandomizer : public RandomizerBase
 public:
     ThreePlayersRandomizer();
 private:
-    std::deque<God> randomizeFirstPhase();
-    std::deque<God> randomizeSecondPhase();
+    void randomizeFirstPhase();
+    void randomizeSecondPhase();
+    void resetGods();
 
 };
 }
