@@ -7,7 +7,7 @@ namespace Cyclades
 
 enum class NumberOfPlayers;
 class ICreatureRandomizer;
-class IGodRandomizer;
+class IGodGenerator;
 
 class ControlBoard
 {
@@ -19,7 +19,7 @@ public:
     void printGods();
 private:
     //std::unique_ptr<ICreatureRandomizer> m_creatureRandomizer;
-    std::unique_ptr<IGodRandomizer> m_godRandomizer;
+    std::unique_ptr<IGodGenerator> m_godGenerator;
 };
 
 }

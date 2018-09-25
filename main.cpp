@@ -15,23 +15,23 @@ using namespace Cyclades;
 
 int main(int argc, char **argv)
 {
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
 
-    QGraphicsScene scene;
+//    QGraphicsScene scene;
 
-    QGraphicsView view(&scene);
+//    QGraphicsView view(&scene);
 
-    QGraphicsPixmapItem item(QPixmap("./Cyclades-TheGods.jpg"));
+//    QGraphicsPixmapItem item(QPixmap("./Cyclades-TheGods.jpg"));
 
-    scene.addItem(&item);
+//    scene.addItem(&item);
 
-    view.show();
+//    view.show();
 
-    return app.exec();
+//    return app.exec();
 
     try
     {
-        ControlBoard l_controlBoard(NumberOfPlayers::Four);
+        ControlBoard l_controlBoard(NumberOfPlayers::Three);
 
         //FOR TESTING PURPOSES RANDOMIZE 10 times for four players
         for (int i = 0; i < 10; ++i)

@@ -6,13 +6,13 @@
 
 namespace Cyclades
 {
-class Randomizer
+class CardShuffler
 {
 public:
-    Randomizer() : m_seed(m_random()) {}
+    CardShuffler() : m_seed(m_random()) {}
 
     template<typename T>
-    void randomize(std::deque<T>& p_typeVector)
+    void shuffle(std::deque<T>& p_typeVector)
     {
         std::shuffle(p_typeVector.begin(), p_typeVector.end(), m_seed);
     }
