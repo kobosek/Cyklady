@@ -5,10 +5,30 @@
 #include "ControlBoard.hpp"
 #include "Types.hpp"
 
+#include <QApplication>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
+
 using namespace Cyclades;
 
-int main()
+
+int main(int argc, char **argv)
 {
+    QApplication app(argc, argv);
+
+    QGraphicsScene scene;
+
+    QGraphicsView view(&scene);
+
+    QGraphicsPixmapItem item(QPixmap("./Cyclades-TheGods.jpg"));
+
+    scene.addItem(&item);
+
+    view.show();
+
+    return app.exec();
+
     try
     {
         ControlBoard l_controlBoard(NumberOfPlayers::Four);
@@ -24,6 +44,4 @@ int main()
         std::cout << e.what() << std::endl;
         return 0;
     }
-
-    return 0;
 }
