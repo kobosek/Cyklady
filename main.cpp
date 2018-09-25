@@ -36,7 +36,7 @@ int main(int argc, char **argv)
         //FOR TESTING PURPOSES RANDOMIZE 10 times for four players
         for (int i = 0; i < 10; ++i)
         {
-            l_controlBoard.printGods();
+            l_controlBoard.printCreatures();
         }
     }
     catch (std::exception& e)

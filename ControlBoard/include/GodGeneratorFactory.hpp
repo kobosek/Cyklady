@@ -11,7 +11,7 @@ class IGodGenerator;
 class GodGeneratorFactory
 {
 public:
-    static std::unique_ptr<IGodGenerator> createGodGenerator(NumberOfPlayers p_numberOfPlayers);
+    static std::unique_ptr<IGodGenerator> createGodGenerator(NumberOfPlayers);
 };
 
 }

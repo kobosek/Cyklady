@@ -12,9 +12,9 @@ public:
     CardShuffler() : m_seed(m_random()) {}
 
     template<typename T>
-    void shuffle(std::deque<T>& p_typeVector)
+    void shuffle(std::deque<T>& p_dequeToShuffle)
     {
-        std::shuffle(p_typeVector.begin(), p_typeVector.end(), m_seed);
+        std::shuffle(p_dequeToShuffle.begin(), p_dequeToShuffle.end(), m_seed);
     }
 
 private:

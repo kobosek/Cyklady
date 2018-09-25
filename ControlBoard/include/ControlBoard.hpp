@@ -6,20 +6,21 @@ namespace Cyclades
 {
 
 enum class NumberOfPlayers;
-class ICreatureRandomizer;
 class IGodGenerator;
+class ICreatureGenerator;
 
 class ControlBoard
 {
 public:
-    ControlBoard(NumberOfPlayers p_numberOfPlayers);
+    ControlBoard(NumberOfPlayers);
     ~ControlBoard();
 
-    //printGods() is temporary for output testing
+    //printGods() and printCreatures() are temporary for output testing
     void printGods();
+    void printCreatures();
 private:
-    //std::unique_ptr<ICreatureRandomizer> m_creatureRandomizer;
     std::unique_ptr<IGodGenerator> m_godGenerator;
+    std::unique_ptr<ICreatureGenerator> m_creatureGenerator;
 };
 
 }

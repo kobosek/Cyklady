@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include <deque>
 #include <ostream>
 
@@ -70,7 +69,7 @@ inline std::ostream& operator <<(std::ostream& os, Color p_colorToPrint)
     case Color::Yellow:
         return os << "Yellow";
     default:
-        return os << "Inalid Color!";
+        return os << "Invalid Color!";
     }
 }
 
@@ -92,26 +91,27 @@ enum class Creature
     Satire,
     Siren,
     Sphinx,
-    Sylphide
+    Sylphide,
+    Empty
 };
 
-const std::vector<Creature> ALL_CREATURES { Creature::Chimera,
-                                            Creature::Chrion,
-                                            Creature::Cyclops,
-                                            Creature::Dryad,
-                                            Creature::Giant,
-                                            Creature::Griffin,
-                                            Creature::Harpy,
-                                            Creature::Kraken,
-                                            Creature::Medusa,
-                                            Creature::Minotaur,
-                                            Creature::Moirai,
-                                            Creature::Pegasus,
-                                            Creature::Polyphemus,
-                                            Creature::Satire,
-                                            Creature::Siren,
-                                            Creature::Sphinx,
-                                            Creature::Sylphide };
+const std::deque<Creature> ALL_CREATURES { Creature::Chimera,
+                                           Creature::Chrion,
+                                           Creature::Cyclops,
+                                           Creature::Dryad,
+                                           Creature::Giant,
+                                           Creature::Griffin,
+                                           Creature::Harpy,
+                                           Creature::Kraken,
+                                           Creature::Medusa,
+                                           Creature::Minotaur,
+                                           Creature::Moirai,
+                                           Creature::Pegasus,
+                                           Creature::Polyphemus,
+                                           Creature::Satire,
+                                           Creature::Siren,
+                                           Creature::Sphinx,
+                                           Creature::Sylphide };
 
 inline std::ostream& operator <<(std::ostream& os, Creature p_creatureToPrint)
 {
@@ -152,7 +152,7 @@ inline std::ostream& operator <<(std::ostream& os, Creature p_creatureToPrint)
     case Creature::Sylphide:
         return os << "Sylphide";
     default:
-        return os << "Invalid Creature!";
+        return os << "Empty";
     }
 }
 
