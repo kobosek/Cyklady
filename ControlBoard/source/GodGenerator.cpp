@@ -4,6 +4,7 @@
 namespace Cyclades
 {
 
+constexpr int NO_UNAVAILABLE_GODS = 0;
 constexpr int ONE_UNAVAILABLE_GOD = 1;
 constexpr int TWO_UNAVAILABLE_GODS = 2;
 
@@ -27,7 +28,7 @@ void GodGeneratorBase::commonGenerate(int p_numberOfUnavailableGods)
 
 std::deque<God> FivePlayersGodGenerator::generateGods()
 {
-    m_shuffler.shuffle(m_lastAvailableGods);
+    commonGenerate(NO_UNAVAILABLE_GODS);
 
     return m_lastAvailableGods;
 }
@@ -40,7 +41,7 @@ std::deque<God> FourPlayersGodGenerator::generateGods()
 }
 
 ThreePlayertsGodGenerator::ThreePlayertsGodGenerator()
-    :   m_currentGenerateFunction(std::bind(&ThreePlayertsGodGenerator::generateFirstPhase, this))
+    :   m_currentGenerateFunction([&]() { generateFirstPhase(); })
 {
 }
 
@@ -54,16 +55,17 @@ std::deque<God> ThreePlayertsGodGenerator::generateGods()
 void ThreePlayertsGodGenerator::generateFirstPhase()
 {
     resetGods();
+
     commonGenerate(TWO_UNAVAILABLE_GODS);
 
-    changePhase(std::bind(&ThreePlayertsGodGenerator::generateSecondPhase, this));
+    changePhase([&]() { generateSecondPhase(); });
 }
 
 void ThreePlayertsGodGenerator::generateSecondPhase()
 {
     m_lastAvailableGods.swap(m_lastUnavailableGods);
 
-    changePhase(std::bind(&ThreePlayertsGodGenerator::generateFirstPhase, this));
+    changePhase([&]() { generateFirstPhase(); });
 }
 
 

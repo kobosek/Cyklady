@@ -1,6 +1,5 @@
 #pragma once
 
-#include <map>
 #include <functional>
 
 #include "IGodGenerator.hpp"
@@ -11,9 +10,9 @@ namespace Cyclades
 class GodGeneratorBase : public IGodGenerator
 {
 public:
+    GodGeneratorBase();
     virtual ~GodGeneratorBase() = default;
 protected:
-    GodGeneratorBase();
     void commonGenerate(int);
 
     std::deque<God> m_lastAvailableGods;
